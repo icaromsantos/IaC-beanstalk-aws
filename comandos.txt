@@ -1,0 +1,16 @@
+-- Builda imagem docker com a tag producao:v1
+docker build . -t producao:v1
+
+-- push docker imager ecr 
+
+-- login
+aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 028574230512.dkr.ecr.us-west-2.amazonaws.com
+
+docker images
+
+docker tag 365bb9307e73 028574230512.dkr.ecr.us-west-2.amazonaws.com/producao:v1
+
+docker push 028574230512.dkr.ecr.us-west-2.amazonaws.com/producao:v1
+
+--atualizar o ambiente do beanstalke
+aws elasticbeanstalk update-environment --environment-name ambiente-de-producao --version-label ambiente-de-producao
